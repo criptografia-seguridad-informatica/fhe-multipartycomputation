@@ -44,8 +44,7 @@ HE_client.save_secret_key(SECRET_KEY_FOLDER + "/sec.key")
 HE_client.save_relin_key(PUBLIC_CONTENT_FOLDER + "/relin.key")
 HE_client.save_rotate_key(PUBLIC_CONTENT_FOLDER + "/rotate.key")
 
-r = requests.post('http://'+SERVER_HOST+':'+str(SERVER_PORT)+'/',
-    json={
+r = requests.post('http://'+SERVER_HOST+':'+str(SERVER_PORT)+'/', json={
         'context': s_context.decode('cp437'),
         'public_key': s_public_key.decode('cp437'),
         'relin_key':s_relin_key.decode('cp437'),
