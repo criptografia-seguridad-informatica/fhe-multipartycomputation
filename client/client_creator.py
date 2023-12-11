@@ -1,7 +1,7 @@
 import numpy as np
 import requests
 from Pyfhel import Pyfhel, PyCtxt
-
+import json
 
 SERVER_HOST = '127.0.0.1'
 SERVER_PORT = 8000
@@ -44,11 +44,16 @@ HE_client.save_secret_key(SECRET_KEY_FOLDER + "/sec.key")
 HE_client.save_relin_key(PUBLIC_CONTENT_FOLDER + "/relin.key")
 HE_client.save_rotate_key(PUBLIC_CONTENT_FOLDER + "/rotate.key")
 
-r = requests.post('http://'+SERVER_HOST+':'+str(SERVER_PORT)+'/', json={
-        'context': s_context.decode('cp437'),
-        'public_key': s_public_key.decode('cp437'),
-        'relin_key':s_relin_key.decode('cp437'),
-        'rotate_key':s_rotate_key.decode('cp437'),
-        'number_owners': NUMBER_OWNERS,
+
+r = requests.post('http://'+SERVER_HOST+':'+str(SERVER_PORT)+'/mutipartycomputation/', json={
+    'context': s_context.decode('cp437'),
+    'public_key': s_public_key.decode('cp437'),
+    'relin_key':s_relin_key.decode('cp437'),
+    'rotate_key':s_rotate_key.decode('cp437'),
+    'number_owners': NUMBER_OWNERS,
 })
 
+print(r.json())
+
+with open(PUBLIC_CONTENT_FOLDER + "/mpc_id.json" , 'w') as json_file:
+    json.dump(r.json(), json_file)
