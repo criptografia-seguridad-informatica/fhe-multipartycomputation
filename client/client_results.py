@@ -30,7 +30,7 @@ r = requests.get('http://'+SERVER_HOST+':'+str(SERVER_PORT)+'/mutipartycomputati
 resp = r.json()
 
 
-encypted_result = PyCtxt(pyfhel=HE_f, bytestring=resp['result'].encode('cp437'))
+encypted_result = PyCtxt(pyfhel=HE_f, bytestring=resp['encrypted_result'].encode('cp437'))
 
 
 res = HE_f.decryptInt(encypted_result)

@@ -7,8 +7,8 @@ SERVER_HOST = '127.0.0.1'
 SERVER_PORT = 8000
 NUMBER_OWNERS = 3
 PUBLIC_CONTENT_FOLDER = './pub_content'
-MY_NUMBER = 3000
-MY_ID = 'Mateooo'
+MY_NUMBER = 4321
+MY_ID = 'Sofii'
 
 HE_f = Pyfhel() 
 HE_f.load_context(PUBLIC_CONTENT_FOLDER + "/context")
@@ -30,7 +30,7 @@ serialized_encr_number = encripted_number.to_bytes().decode('cp437')
 
 r = requests.post('http://'+SERVER_HOST+':'+str(SERVER_PORT)+'/mutipartycomputation/'+id_multiparty_computation, json={
     'data_owner_id': MY_ID,
-    'hashed_data': serialized_encr_number
+    'encrypted_data': serialized_encr_number
 })
 
 print(r.json())

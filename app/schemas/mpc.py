@@ -11,4 +11,4 @@ class MpcSystem(BaseModel):
 
 class MpcData(BaseModel):
     data_owner_id: str
-    hashed_data: str
+    encrypted_data: str

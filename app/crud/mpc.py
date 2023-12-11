@@ -47,5 +47,7 @@ def update_mpc_system(db: Session, db_mpc_system: MpcSystem, new_result: str, ne
 
 
 def get_parties(db: Session, mpc_system_id: str):
-    return db.query(MpcData).filter(MpcData.mpc_system_id == mpc_system_id)
+    mpc_data_list = db.query(MpcData).filter(MpcData.mpc_system_id == mpc_system_id).all()
+    return [mpc_data.data_owner_id for mpc_data in mpc_data_list]
+
 
