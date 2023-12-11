@@ -1,14 +1,30 @@
 import numpy as np
 import requests
-from Pyfhel import Pyfhel, PyCtxt
+from Pyfhel import Pyfhel
 import json
+from dotenv import load_dotenv
+import os
+import argparse
 
-SERVER_HOST = '127.0.0.1'
-SERVER_PORT = 8000
-NUMBER_OWNERS = 3
-PUBLIC_CONTENT_FOLDER = './pub_content'
-MY_NUMBER = 4321
-MY_ID = 'Sofii'
+load_dotenv()
+
+SERVER_HOST = os.environ.get("SERVER_HOST")
+SERVER_PORT = os.environ.get("SERVER_PORT")
+NUMBER_OWNERS = os.environ.get("NUMBER_OWNERS")
+PUBLIC_CONTENT_FOLDER = os.environ.get("PUBLIC_CONTENT_FOLDER")
+
+
+parser = argparse.ArgumentParser()
+
+
+parser.add_argument("name", type=str, help="Ingrese el nombre de la persona")
+parser.add_argument("number", type=int, help="Ingrese el numero a encriptar")
+
+args = parser.parse_args()
+
+MY_ID = args.name
+MY_NUMBER = args.number
+
 
 HE_f = Pyfhel() 
 HE_f.load_context(PUBLIC_CONTENT_FOLDER + "/context")

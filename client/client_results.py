@@ -2,12 +2,17 @@ import numpy as np
 import requests
 from Pyfhel import Pyfhel, PyCtxt
 import json
+from dotenv import load_dotenv
+import os
 
-SERVER_HOST = '127.0.0.1'
-SERVER_PORT = 8000
-NUMBER_OWNERS = 3
-PUBLIC_CONTENT_FOLDER = './pub_content'
-SECRET_KEY_FOLDER = './secret_content'
+load_dotenv()
+
+
+SERVER_HOST = os.environ.get("SERVER_HOST")
+SERVER_PORT = os.environ.get("SERVER_PORT")
+NUMBER_OWNERS = int(os.environ.get("NUMBER_OWNERS"))
+PUBLIC_CONTENT_FOLDER = os.environ.get("PUBLIC_CONTENT_FOLDER")
+SECRET_KEY_FOLDER = os.environ.get("SECRET_KEY_FOLDER")
 
 
 HE_f = Pyfhel() 
@@ -25,8 +30,6 @@ with open(PUBLIC_CONTENT_FOLDER+"/mpc_id.json", 'r') as json_file:
 
 r = requests.get('http://'+SERVER_HOST+':'+str(SERVER_PORT)+'/mutipartycomputation/'+id_multiparty_computation)
 
-# print(r.json()['parties'])
-
 resp = r.json()
 
 
@@ -35,4 +38,8 @@ encypted_result = PyCtxt(pyfhel=HE_f, bytestring=resp['encrypted_result'].encode
 
 res = HE_f.decryptInt(encypted_result)
 
-print("La respuesta es ", res[0])
+mean = res[0] / NUMBER_OWNERS
+participants = resp['owners']
+
+print("El promedio entre los participantes es ", mean)
+print("Los participantes fueron: ", participants)

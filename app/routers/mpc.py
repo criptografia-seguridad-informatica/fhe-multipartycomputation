@@ -34,7 +34,7 @@ async def add_mpc_data(mpc_id: str, mpc_data: MpcData, db: Session = Depends(get
         raise HTTPException(status_code=404, detail=f"Owner {mpc_data.data_owner_id} has already sent data to"
                                                     f" Multi Party Computation Sum with id {mpc_id}.")
     new_sum = calculator.encrypted_sum(db_mpc_system, mpc_data.encrypted_data)
-    updated = crud.update_mpc_system(db, db_mpc_system, new_sum, mpc_data.data_owner_id)
+    crud.update_mpc_system(db, db_mpc_system, new_sum, mpc_data.data_owner_id)
 
 
 @router.get("/{mpc_id}")
@@ -50,6 +50,6 @@ async def get_mpc_system_result(mpc_id: str, db: Session = Depends(get_db)):
     parties = crud.get_parties(db, mpc_id)
     print("Se obtienen parties")
     return {
-        # 'owners': parties,
+        'owners': parties,
         'encrypted_result': db_mpc_system.result,
     }

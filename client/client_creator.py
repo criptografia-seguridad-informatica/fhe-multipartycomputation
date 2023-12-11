@@ -1,13 +1,18 @@
 import numpy as np
 import requests
-from Pyfhel import Pyfhel, PyCtxt
+from Pyfhel import Pyfhel
 import json
+from dotenv import load_dotenv
+import os
 
-SERVER_HOST = '127.0.0.1'
-SERVER_PORT = 8000
-NUMBER_OWNERS = 3
-PUBLIC_CONTENT_FOLDER = './pub_content'
-SECRET_KEY_FOLDER = './secret_content'
+load_dotenv()
+
+
+SERVER_HOST = os.environ.get("SERVER_HOST")
+SERVER_PORT = os.environ.get("SERVER_PORT")
+NUMBER_OWNERS = os.environ.get("NUMBER_OWNERS")
+PUBLIC_CONTENT_FOLDER = os.environ.get("PUBLIC_CONTENT_FOLDER")
+SECRET_KEY_FOLDER = os.environ.get("SECRET_KEY_FOLDER")
 
 
 HE_client = Pyfhel() 
